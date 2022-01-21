@@ -1,17 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+const plus = document.getElementById('plus');
+const minus = document.getElementById('minus');
+const count = document.getElementById('count');
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+let counter = 0;
+count.textContent = counter;
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const updateCount = () => {
+  count.textContent = counter;
+}
+
+const handlePlus = () => {
+  counter++;
+  updateCount();
+};
+
+const handleMinus = () => {
+  counter--;
+  updateCount();
+};
+
+plus.addEventListener('click', handlePlus);
+
+minus.addEventListener('click', handleMinus);
