@@ -1,24 +1,35 @@
+import { createStore } from 'redux';
+
+const INCREASE = 'increase';
+const DECREASE = 'decrease';
+
 const plus = document.getElementById('plus');
 const minus = document.getElementById('minus');
 const count = document.getElementById('count');
 
-let counter = 0;
-count.textContent = counter;
+const countReducer = (state = 0, action) => {
+  switch (action.type) {
+    case INCREASE:
+      return state + 1;
+    case DECREASE:
+      return state - 1;
+    default:
+      return state;
+  }
+};
+const countStore = createStore(countReducer);
+count.textContent = countStore.getState();
 
-const updateCount = () => {
-  count.textContent = counter;
+const onChange = () => {
+  count.textContent = countStore.getState();
 }
 
-const handlePlus = () => {
-  counter++;
-  updateCount();
-};
+countStore.subscribe(onChange)
 
-const handleMinus = () => {
-  counter--;
-  updateCount();
-};
+plus.addEventListener('click', () => {
+  countStore.dispatch({ type: INCREASE });
+});
 
-plus.addEventListener('click', handlePlus);
-
-minus.addEventListener('click', handleMinus);
+minus.addEventListener('click', () => {
+  countStore.dispatch({ type: DECREASE });
+});
